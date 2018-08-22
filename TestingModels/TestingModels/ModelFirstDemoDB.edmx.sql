@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2018 00:40:15
--- Generated from EDMX file: L:\OneDrive\GIT_REPO\Test_02_Entity2\TestingModels\TestingModels\ModelFirstDemoDB.edmx
+-- Date Created: 08/22/2018 09:47:24
+-- Generated from EDMX file: C:\Users\prodrilo\Source\Repos\Test_02_Entity2\TestingModels\TestingModels\ModelFirstDemoDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [test_modelos];
+USE prueba;
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,11 +17,26 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_StudentEnrollment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EnrollmentSet] DROP CONSTRAINT [FK_StudentEnrollment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CourseEnrollment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EnrollmentSet] DROP CONSTRAINT [FK_CourseEnrollment];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Students]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Students];
+GO
+IF OBJECT_ID(N'[dbo].[EnrollmentSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EnrollmentSet];
+GO
+IF OBJECT_ID(N'[dbo].[CourseSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CourseSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -53,6 +68,22 @@ CREATE TABLE [dbo].[CourseSet] (
 );
 GO
 
+-- Creating table 'Usuarios'
+CREATE TABLE [dbo].[Usuarios] (
+    [UsuarioID] int IDENTITY(1,1) NOT NULL,
+    [eMail] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'LogsUsuario'
+CREATE TABLE [dbo].[LogsUsuario] (
+    [LogUsuarioID] int IDENTITY(1,1) NOT NULL,
+    [nivel] smallint  NOT NULL,
+    [criciticidad] smallint  NOT NULL,
+    [textoLog] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -73,6 +104,18 @@ GO
 ALTER TABLE [dbo].[CourseSet]
 ADD CONSTRAINT [PK_CourseSet]
     PRIMARY KEY CLUSTERED ([CourseID] ASC);
+GO
+
+-- Creating primary key on [UsuarioID] in table 'Usuarios'
+ALTER TABLE [dbo].[Usuarios]
+ADD CONSTRAINT [PK_Usuarios]
+    PRIMARY KEY CLUSTERED ([UsuarioID] ASC);
+GO
+
+-- Creating primary key on [LogUsuarioID] in table 'LogsUsuario'
+ALTER TABLE [dbo].[LogsUsuario]
+ADD CONSTRAINT [PK_LogsUsuario]
+    PRIMARY KEY CLUSTERED ([LogUsuarioID] ASC);
 GO
 
 -- --------------------------------------------------

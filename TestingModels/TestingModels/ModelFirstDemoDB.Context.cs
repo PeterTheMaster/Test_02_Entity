@@ -28,5 +28,7 @@ namespace TestingModels
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Enrollment> EnrollmentSet { get; set; }
         public virtual DbSet<Course> CourseSet { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<LogUsuario> LogsUsuario { get; set; }
     }
 }

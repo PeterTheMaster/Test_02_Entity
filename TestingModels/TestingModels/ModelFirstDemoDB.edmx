@@ -9,6 +9,8 @@
     <EntitySet Name="Students" EntityType="ModeloBase.Store.Students" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EnrollmentSet" EntityType="ModeloBase.Store.EnrollmentSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CourseSet" EntityType="ModeloBase.Store.CourseSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="ModeloBase.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LogsUsuario" EntityType="ModeloBase.Store.LogsUsuario" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StudentEnrollment" Association="ModeloBase.Store.StudentEnrollment">
       <End Role="Student" EntitySet="Students" />
       <End Role="Enrollment" EntitySet="EnrollmentSet" />
@@ -43,6 +45,22 @@
       <PropertyRef Name="CourseID" />
     </Key>
     <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="UsuarioID" />
+    </Key>
+    <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="eMail" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LogsUsuario">
+    <Key>
+      <PropertyRef Name="LogUsuarioID" />
+    </Key>
+    <Property Name="LogUsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nivel" Type="smallint" Nullable="false" />
+    <Property Name="criciticidad" Type="smallint" Nullable="false" />
+    <Property Name="textoLog" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="StudentEnrollment">
     <End Role="Student" Type="ModeloBase.Store.Students" Multiplicity="1" />
@@ -84,6 +102,8 @@
             <End Role="Course" EntitySet="CourseSet" />
             <End Role="Enrollment" EntitySet="EnrollmentSet" />
           </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="ModeloBase.Usuario" />
+          <EntitySet Name="LogsUsuario" EntityType="ModeloBase.LogUsuario" />
         </EntityContainer>
         <EntityType Name="Student">
           <Key>
@@ -139,6 +159,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eMail" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogUsuario">
+          <Key>
+            <PropertyRef Name="LogUsuarioID" />
+          </Key>
+          <Property Name="LogUsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nivel" Type="Int16" Nullable="false" />
+          <Property Name="criciticidad" Type="Int16" Nullable="false" />
+          <Property Name="textoLog" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -171,6 +207,24 @@
       <EntityTypeMapping TypeName="IsTypeOf(ModeloBase.Course)">
         <MappingFragment StoreEntitySet="CourseSet">
           <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloBase.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+          <ScalarProperty Name="eMail" ColumnName="eMail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogsUsuario">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloBase.LogUsuario)">
+        <MappingFragment StoreEntitySet="LogsUsuario">
+          <ScalarProperty Name="LogUsuarioID" ColumnName="LogUsuarioID" />
+          <ScalarProperty Name="nivel" ColumnName="nivel" />
+          <ScalarProperty Name="criciticidad" ColumnName="criciticidad" />
+          <ScalarProperty Name="textoLog" ColumnName="textoLog" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

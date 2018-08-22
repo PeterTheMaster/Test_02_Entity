@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'L:\OneDrive\GIT_REPO\Test_02_Entity2\TestingModels\TestingModels\ModelFirstDemoDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\prodrilo\Source\Repos\Test_02_Entity2\TestingModels\TestingModels\ModelFirstDemoDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
