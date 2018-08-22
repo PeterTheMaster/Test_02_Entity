@@ -16,7 +16,10 @@ namespace TestingModels
     {
         public int LogUsuarioID { get; set; }
         public short nivel { get; set; }
-        public short criciticidad { get; set; }
+        public short criticidad { get; set; }
         public string textoLog { get; set; }
+        public int UsuarioUsuarioID { get; set; }
+    
+        public virtual Usuario Usuario { get; set; }
     }
 }

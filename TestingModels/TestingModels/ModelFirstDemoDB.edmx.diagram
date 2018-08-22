@@ -12,6 +12,7 @@
         <AssociationConnector Association="ModeloBase.CourseEnrollment" />
         <EntityTypeShape EntityType="ModeloBase.Usuario" Width="1.5" PointX="1.625" PointY="3.75" />
         <EntityTypeShape EntityType="ModeloBase.LogUsuario" Width="1.5" PointX="4.375" PointY="3.75" />
+        <AssociationConnector Association="ModeloBase.LogUsuarioUsuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2018 09:47:24
+-- Date Created: 08/22/2018 09:59:18
 -- Generated from EDMX file: C:\Users\prodrilo\Source\Repos\Test_02_Entity2\TestingModels\TestingModels\ModelFirstDemoDB.edmx
 -- --------------------------------------------------
 
@@ -23,6 +23,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CourseEnrollment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EnrollmentSet] DROP CONSTRAINT [FK_CourseEnrollment];
 GO
+IF OBJECT_ID(N'[dbo].[FK_LogUsuarioUsuario]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LogsUsuario] DROP CONSTRAINT [FK_LogUsuarioUsuario];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -36,6 +39,12 @@ IF OBJECT_ID(N'[dbo].[EnrollmentSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CourseSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CourseSet];
+GO
+IF OBJECT_ID(N'[dbo].[Usuarios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Usuarios];
+GO
+IF OBJECT_ID(N'[dbo].[LogsUsuario]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LogsUsuario];
 GO
 
 -- --------------------------------------------------
@@ -79,8 +88,9 @@ GO
 CREATE TABLE [dbo].[LogsUsuario] (
     [LogUsuarioID] int IDENTITY(1,1) NOT NULL,
     [nivel] smallint  NOT NULL,
-    [criciticidad] smallint  NOT NULL,
-    [textoLog] nvarchar(max)  NOT NULL
+    [criticidad] smallint  NOT NULL,
+    [textoLog] nvarchar(max)  NOT NULL,
+    [UsuarioUsuarioID] int  NOT NULL
 );
 GO
 
@@ -150,6 +160,21 @@ GO
 CREATE INDEX [IX_FK_CourseEnrollment]
 ON [dbo].[EnrollmentSet]
     ([CourseCourseID]);
+GO
+
+-- Creating foreign key on [UsuarioUsuarioID] in table 'LogsUsuario'
+ALTER TABLE [dbo].[LogsUsuario]
+ADD CONSTRAINT [FK_LogUsuarioUsuario]
+    FOREIGN KEY ([UsuarioUsuarioID])
+    REFERENCES [dbo].[Usuarios]
+        ([UsuarioID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LogUsuarioUsuario'
+CREATE INDEX [IX_FK_LogUsuarioUsuario]
+ON [dbo].[LogsUsuario]
+    ([UsuarioUsuarioID]);
 GO
 
 -- --------------------------------------------------

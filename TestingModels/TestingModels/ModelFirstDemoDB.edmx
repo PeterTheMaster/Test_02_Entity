@@ -19,6 +19,10 @@
       <End Role="Course" EntitySet="CourseSet" />
       <End Role="Enrollment" EntitySet="EnrollmentSet" />
     </AssociationSet>
+    <AssociationSet Name="LogUsuarioUsuario" Association="ModeloBase.Store.LogUsuarioUsuario">
+      <End Role="LogUsuario" EntitySet="LogsUsuario" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Students">
     <Key>
@@ -59,8 +63,9 @@
     </Key>
     <Property Name="LogUsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nivel" Type="smallint" Nullable="false" />
-    <Property Name="criciticidad" Type="smallint" Nullable="false" />
+    <Property Name="criticidad" Type="smallint" Nullable="false" />
     <Property Name="textoLog" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsuarioUsuarioID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="StudentEnrollment">
     <End Role="Student" Type="ModeloBase.Store.Students" Multiplicity="1" />
@@ -86,6 +91,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="LogUsuarioUsuario">
+    <End Role="LogUsuario" Type="ModeloBase.Store.LogsUsuario" Multiplicity="*" />
+    <End Role="Usuario" Type="ModeloBase.Store.Usuarios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="LogUsuario">
+        <PropertyRef Name="UsuarioUsuarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -104,6 +121,10 @@
           </AssociationSet>
           <EntitySet Name="Usuarios" EntityType="ModeloBase.Usuario" />
           <EntitySet Name="LogsUsuario" EntityType="ModeloBase.LogUsuario" />
+          <AssociationSet Name="LogUsuarioUsuario" Association="ModeloBase.LogUsuarioUsuario">
+            <End Role="LogUsuario" EntitySet="LogsUsuario" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Student">
           <Key>
@@ -165,6 +186,7 @@
           </Key>
           <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="eMail" Type="String" Nullable="false" />
+          <NavigationProperty Name="LogsUsuario" Relationship="ModeloBase.LogUsuarioUsuario" FromRole="Usuario" ToRole="LogUsuario" />
         </EntityType>
         <EntityType Name="LogUsuario">
           <Key>
@@ -172,9 +194,23 @@
           </Key>
           <Property Name="LogUsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nivel" Type="Int16" Nullable="false" />
-          <Property Name="criciticidad" Type="Int16" Nullable="false" />
+          <Property Name="criticidad" Type="Int16" Nullable="false" />
           <Property Name="textoLog" Type="String" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloBase.LogUsuarioUsuario" FromRole="LogUsuario" ToRole="Usuario" />
+          <Property Name="UsuarioUsuarioID" Type="Int32" Nullable="false" />
         </EntityType>
+        <Association Name="LogUsuarioUsuario">
+          <End Type="ModeloBase.LogUsuario" Role="LogUsuario" Multiplicity="*" />
+          <End Type="ModeloBase.Usuario" Role="Usuario" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="LogUsuario">
+              <PropertyRef Name="UsuarioUsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -223,8 +259,9 @@
         <MappingFragment StoreEntitySet="LogsUsuario">
           <ScalarProperty Name="LogUsuarioID" ColumnName="LogUsuarioID" />
           <ScalarProperty Name="nivel" ColumnName="nivel" />
-          <ScalarProperty Name="criciticidad" ColumnName="criciticidad" />
+          <ScalarProperty Name="criticidad" ColumnName="criticidad" />
           <ScalarProperty Name="textoLog" ColumnName="textoLog" />
+          <ScalarProperty Name="UsuarioUsuarioID" ColumnName="UsuarioUsuarioID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
